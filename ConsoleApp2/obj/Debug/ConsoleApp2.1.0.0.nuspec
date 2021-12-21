@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ConsoleApp2</id>
+    <version>1.0.0</version>
+    <authors>ConsoleApp2</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="LitJson" version="0.17.0" exclude="Build,Analyzers" />
+        <dependency id="MySql.Data" version="8.0.27" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\Admin\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp3.1\ConsoleApp2.runtimeconfig.json" target="lib\netcoreapp3.1\ConsoleApp2.runtimeconfig.json" />
+    <file src="C:\Users\Admin\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp3.1\ConsoleApp2.dll" target="lib\netcoreapp3.1\ConsoleApp2.dll" />
+  </files>
+</package>

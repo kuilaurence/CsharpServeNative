@@ -5,8 +5,8 @@ public class SqlAccess
 {
     static string host = "localhost";
     static string port = "3306";
+    static string database = "gg";
     static string id = "root";
-    static string database = "mysql";
     static string pwd = "root";
     public static MySqlConnection dbConnection;
     public SqlAccess()

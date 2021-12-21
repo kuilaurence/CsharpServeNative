@@ -207,6 +207,7 @@ namespace Bend.Util
         public MyHttpServer(string ip, int port) : base(ip, port)
         {
         }
+        //http://192.168.3.216:8080/help
         public override void HandleGETRequest(HttpProcessor p)
         {
             if (p.http_url == "/help")
