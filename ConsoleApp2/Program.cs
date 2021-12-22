@@ -1,6 +1,7 @@
 ﻿using System;
 using LitJson;
 using System.IO;
+using System.Web;
 using System.Net;
 using System.Data;
 using System.Threading;
@@ -207,23 +208,29 @@ namespace Bend.Util
         public MyHttpServer(string ip, int port) : base(ip, port)
         {
         }
-        //http://192.168.3.216:8080/help
+        //http://192.168.3.216:8080/help?age=21&limit=2&offset=1
         public override void HandleGETRequest(HttpProcessor p)
         {
-            if (p.http_url == "/help")
+            string getAction = p.http_url.Split('?')[0];
+            if (getAction == "/help")
             {
                 SqlAccess sa = new SqlAccess();
-                DataSet ds = sa.SelectWhere("student", new string[] { "id", "name", "age" }, new string[] { "id" }, new string[] { "=" }, new string[] { "1" });
+                var queryObj = HttpUtility.ParseQueryString(p.http_url.Split('?')[1]);
+                DataSet ds = sa.SelectWherePage(string.Format("SELECT * FROM student WHERE  age = {0} LIMIT {1} OFFSET {2}", queryObj["age"], queryObj["limit"], queryObj["offset"]));
                 if (ds != null)
                 {
                     JsonData json = new JsonData();
+                    json["code"] = 200;
+                    json["status"] = "success";
+                    json["data"] = new JsonData();
                     DataTable table = ds.Tables[0];
                     foreach (DataRow row in table.Rows)
                     {
-                        JsonData data = new JsonData();
+                        string id = row["id"].ToString();
+                        json["data"][id] = new JsonData();
                         foreach (DataColumn column in table.Columns)
                         {
-                            json[column.ColumnName] = row[column].ToString();
+                            json["data"][id][column.ColumnName] = row[column].ToString();
                         }
                     }
                     p.WriteSuccess();

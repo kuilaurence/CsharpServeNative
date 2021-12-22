@@ -103,6 +103,10 @@ public class SqlAccess
         }
         return ExecuteQuery(query);
     }
+    public DataSet SelectWherePage(string query)
+    {
+        return ExecuteQuery(query);
+    }
     public DataSet UpdateInto(string tableName, string[] cols, string[] colsvalues, string selectkey, string selectvalue)
     {
         string query = "UPDATE " + tableName + " SET " + cols[0] + " = " + colsvalues[0];
