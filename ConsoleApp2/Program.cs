@@ -216,7 +216,7 @@ namespace Bend.Util
             {
                 SqlAccess sa = new SqlAccess();
                 var queryObj = HttpUtility.ParseQueryString(p.http_url.Split('?')[1]);
-                DataSet ds = sa.SelectWherePage(string.Format("SELECT * FROM student WHERE  age = {0} LIMIT {1} OFFSET {2}", queryObj["age"], queryObj["limit"], queryObj["offset"]));
+                DataSet ds = sa.SelectWherePage($"SELECT * FROM student WHERE age = {queryObj["age"]} LIMIT {queryObj["limit"] ?? "1000"} OFFSET {queryObj["offset"] ?? "0"}");
                 if (ds != null)
                 {
                     JsonData json = new JsonData();
@@ -262,7 +262,7 @@ namespace Bend.Util
     }
     public class Program
     {
-        public static int Main(String[] args)
+        public static int Main(string[] args)
         {
             string ip = "192.168.3.216";
             int port = 8080;
