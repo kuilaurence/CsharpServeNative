@@ -223,15 +223,19 @@ namespace Bend.Util
                     json["code"] = 200;
                     json["status"] = "success";
                     json["data"] = new JsonData();
+                    json["data"].SetJsonType(JsonType.Array);
                     DataTable table = ds.Tables[0];
+                    int index = 0;
                     foreach (DataRow row in table.Rows)
                     {
-                        string id = row["id"].ToString();
-                        json["data"][id] = new JsonData();
+                        JsonData temp = new JsonData();
+                        temp["id"] = row["id"].ToString();
                         foreach (DataColumn column in table.Columns)
                         {
-                            json["data"][id][column.ColumnName] = row[column].ToString();
+                            temp[column.ColumnName] = row[column].ToString();
                         }
+                        json["data"].Add(index);
+                        json["data"][index++] = temp;
                     }
                     p.WriteSuccess();
                     p.outputStream.Write(json.ToJson());
